@@ -1,6 +1,7 @@
 package com.reenaz.notebook.repository;
 
 import com.reenaz.notebook.model.Note;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Map;
 
@@ -15,4 +16,7 @@ public interface NoteRepository {
     void update(Note note);
 
     void delete(Long id);
+
+
+
 }

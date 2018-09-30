@@ -70,7 +70,7 @@ body {
 
 .nav-container {
   height: 60px;
-  background-color: #3498db;
+  background-color: #aad450;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   padding: 10px 40px;
   font-family: 'Assistant', sans-serif;
@@ -99,7 +99,7 @@ body {
   width: 100px;
   background: rgb(255,255,255);
   border-radius: 4px;
-  color: #3498db;
+  color: black;
   float: right;
   font-weight: bold;
   font-size: 1.5em;
@@ -191,7 +191,7 @@ body {
   color: white;
   font-size: 1.25em;
   font-weight: bold;
-  background: #3498db;
+  background: #00bf8f;
   position: absolute;
   top: 0;
   left: 0;
@@ -269,7 +269,6 @@ body {
 .note-card-delete:hover {
   background: #e74c3c;
   color: white;
-  transform: rotate(180deg);
 }
 
 .note-card-edit {
@@ -291,7 +290,7 @@ body {
 
 .note-card-edit:hover {
   color: #3498db;
-  transform: rotate(90deg);
+
 }
 
 @media only screen and (max-width: 500px) {
@@ -361,7 +360,7 @@ body {
 }
 
 .note-title {
-  background-color: #3498db;
+  background-color: #aad450;
   padding: 10px;
 }
 
@@ -371,7 +370,7 @@ body {
   text-align: center;
   font-family: 'Assistant', sans-serif;
   width: 600px;
-  background-color: #2980b9;
+  background-color: #aad450;
   color: white;
   padding-left: 10px;
   padding-right: 10px;

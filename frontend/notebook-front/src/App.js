@@ -28,27 +28,34 @@ class App extends Component {
 
   getNotes = () => {
     axios.get(backendUrl('notes'))
-    .then((res) => this.setState({notes: res.data}) )
+    .then((res) => {
+
+      console.log(res);
+      this.setState({notes: res.data})
+    } )
     .catch((err) => console.log(err.response.data) );
   }
 
   getNote = (id) => {
-    axios.get(backendUrl(`notes/${id}`))
+    axios.get(backendUrl(`note/${id}`))
     .then((res) => this.setState({note: res.data, showNote: true }) )
     .catch((err) => console.log(err.response.data) );
   }
 
   performSubmissionRequest = (data, id) => {
     if (id) {
-      return axios.patch(backendUrl(`notes/${id}`), data);
+      data.id = id;
+      return axios.put(backendUrl(`note`), data);
     } else {
-      return axios.post(backendUrl('notes'), data);
+      return axios.post(backendUrl('note'), data);
     }
   }
 
   submitNote = (data, id) => {
     this.performSubmissionRequest(data, id)
-    .then((res) => this.setState({ showNote: false }) )
+    .then((res) => {
+      this.setState({ note: res.data, showNote: false });
+    } )
     .catch((err) => {
       const { errors } = err.response.data;
       if (errors.content) {

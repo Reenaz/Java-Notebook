@@ -1,11 +1,14 @@
 package com.reenaz.notebook.service.impl;
 
 import com.reenaz.notebook.model.Note;
+import com.reenaz.notebook.model.requests.NoteUpdateReq;
 import com.reenaz.notebook.repository.NoteRepository;
 import com.reenaz.notebook.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +25,10 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public List<Note> findAll() {
-        return new LinkedList<>(noteRepository.findAll().values());
+    return new LinkedList<>(noteRepository.findAll().values());
+//        List<Note> products = new ArrayList<>();
+//        noteRepository.findAll().forEach(products::add); //fun with Java 8
+     //   return products;
     }
 
     @Override
@@ -31,13 +37,23 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public void save(Note note) {
+    @Transactional
+    public Note save(Note note) {
+        note.setId();
         noteRepository.save(note);
+        return note;
+
     }
 
     @Override
-    public void update(Note note) {
+    @Transactional
+    public Note update(NoteUpdateReq noteReq) {
+        System.out.println("Note for update: " + noteReq);
+        Note note = noteRepository.find(noteReq.getId());
+        note.setTitle(noteReq.getTitle());
+        note.setContent(noteReq.getContent());
         noteRepository.update(note);
+        return note;
     }
 
     @Override

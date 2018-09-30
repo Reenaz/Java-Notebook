@@ -1,36 +1,44 @@
 package com.reenaz.notebook.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
-public class Note {
-    private long id;
+@RedisHash("notes")
+public class Note  implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private static long idCounter = 0;
+
+    private Long id;
     private String title;
-    private Date createdDate;
-    private String body;
+    private long createdDate;
+    private String content;
+    private List<String> tags;
 
     public Note() {
     }
 
-    public Note(String title, Date createdDate, String body) {
+    public Note(String title, String content, List<String> tags) {
         this.title = title;
-        this.createdDate = createdDate;
-        this.body = body;
+        this.createdDate = new Date().getTime();
+        this.content = content;
+        this.tags = tags;
     }
 
-    public Note(long id, String title, Date createdDate, String body) {
-        this.id = id;
-        this.title = title;
-        this.createdDate = createdDate;
-        this.body = body;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+    public void setId() {
+        this.id = idCounter++;
     }
 
     public String getTitle() {
@@ -41,20 +49,50 @@ public class Note {
         this.title = title;
     }
 
-    public Date getCreatedDate() {
+    public long getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(long createdDate) {
         this.createdDate = createdDate;
     }
 
-    public String getBody() {
-        return body;
+    public String getContent() {
+        return content;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public List<String> getTags() {
+        if(null != tags ){
+            return tags;
+        }else{
+            return Collections.emptyList();
+        }
+
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Note note = (Note) o;
+        return createdDate == note.createdDate &&
+                Objects.equals(id, note.id) &&
+                Objects.equals(title, note.title) &&
+                Objects.equals(content, note.content) &&
+                Objects.equals(tags, note.tags);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, createdDate, content, tags);
     }
 
     @Override
@@ -63,7 +101,8 @@ public class Note {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", createdDate=" + createdDate +
-                ", body='" + body + '\'' +
+                ", content='" + content + '\'' +
+                ", tags=" + tags +
                 '}';
     }
 }

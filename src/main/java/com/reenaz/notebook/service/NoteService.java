@@ -1,6 +1,7 @@
 package com.reenaz.notebook.service;
 
 import com.reenaz.notebook.model.Note;
+import com.reenaz.notebook.model.requests.NoteUpdateReq;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,9 @@ public interface NoteService {
 
     Note find(long id);
 
-    void save(Note note);
+    Note save(Note note);
 
-    void update(Note note);
+    Note update(NoteUpdateReq note);
 
     void delete(long id);
 

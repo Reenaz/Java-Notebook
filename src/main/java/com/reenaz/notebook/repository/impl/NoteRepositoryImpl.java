@@ -11,9 +11,8 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 @Repository
-public class NoteRepositoryImpl implements NoteRepository {
-
-    private static final String KEY = "Note";
+public class NoteRepositoryImpl implements NoteRepository{
+    private static final String KEY = "Notes";
 
     private RedisTemplate<String, Object> redisTemplate;
     private HashOperations<String, Long, Note> hashOperations;
@@ -45,6 +44,7 @@ public class NoteRepositoryImpl implements NoteRepository {
 
     @Override
     public void update(Note note) {
+        System.out.println("updating note: " + note);
         hashOperations.put(KEY, note.getId(), note);
     }
 
